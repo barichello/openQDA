@@ -1,0 +1,75 @@
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attributes`
+--
+
+CREATE TABLE IF NOT EXISTS `attributes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` text COLLATE latin1_general_ci NOT NULL,
+  `memo` longtext COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=11 ;
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `codes`
+--
+
+CREATE TABLE IF NOT EXISTS `codes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` text COLLATE latin1_general_ci NOT NULL,
+  `memo` longtext COLLATE latin1_general_ci NOT NULL,
+  `color` text COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=8 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `imageAttributes`
+--
+
+CREATE TABLE IF NOT EXISTS `imageAttributes` (
+  `images_id` int(11) NOT NULL,
+  `attributes_id` int(11) NOT NULL,
+  `value` text COLLATE latin1_general_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `imageCoding`
+--
+
+CREATE TABLE IF NOT EXISTS `imageCoding` (
+  `images_id` int(11) NOT NULL,
+  `codes_id` int(11) NOT NULL,
+  `x1` int(11) NOT NULL,
+  `y1` int(11) NOT NULL,
+  `x2` int(11) NOT NULL,
+  `y2` int(11) NOT NULL,
+  `owner` text COLLATE latin1_general_ci NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(11) NOT NULL,
+  `memo` longtext COLLATE latin1_general_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `images`
+--
+
+CREATE TABLE IF NOT EXISTS `images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` text COLLATE latin1_general_ci NOT NULL,
+  `owner` text COLLATE latin1_general_ci NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(11) NOT NULL,
+  `memo` longtext COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1945 ;
