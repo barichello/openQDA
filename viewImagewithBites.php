@@ -58,7 +58,7 @@ echo "<br>\n<span class='fieldname'>actions:</span><a href='editAttributes.php?i
 list($width, $height) = getimagesize("images/" . $row["name"]);
 echo "<canvas id='canvas0' style='margin: 20px 0 20px 0;' width=800 height=" . ($height*800)/$width . "></canvas>\n";
 
-//espaco pra colocar as descricoes dos pedacoes codificados
+//espaco pra colocar as descricoes dos pedacos codificados
 echo "\n<br>\n<span class='fieldname'>Codings:</span>\n";
 echo "<div id='abouttheCodes'></div>";
 
@@ -78,9 +78,11 @@ while($row2 = mysqli_fetch_assoc($result2)) {
     echo "ctx.strokeRect(" . $row2["x1"]*(800/$width) .  "," . $row2["y1"]*(800/$width) . "," . ($row2["x2"]-$row2["x1"])*(800/$width) . "," . ($row2["y2"]-$row2["y1"])*(800/$width) . ");\n";
     echo "ctx.fillText('" . $row2["name"] . "'," . $row2["x1"]*(800/$width) .  "," . $row2["y1"]*(800/$width) . ");\n"; //trocar ID por nome do code
     //para mostrar os dados dos codes antes da imagem
-    echo "document.getElementById('abouttheCodes').innerHTML += '<span style=color:" . $row2["color"] . ";>" . $row2["name"] . "</span>: " . $row2["memo"] . "<br>';";
+    echo "document.getElementById('abouttheCodes').innerHTML += '<span style=color:" . $row2["color"] . ";>" . $row2["name"] . "</span>: " . $row2["memo"] . "';";
+    echo "document.getElementById('abouttheCodes').innerHTML += ' <a class=deletelink href=doDeleteCoding.php?imageId=" . $row2["images_id"] . "&codeId="  . $row2["codes_id"] .  ">[delete code]</a></br>';";
     }
 
+    
 echo "</script>";
 $d = str_replace(" ","x",$row["date"]); //tweaking the string to send by GET
 echo "<div></br><span class='fieldname'>Navigate: </span><a href=http://www.mais.mat.br/webQDA/viewImagewithBites.php?idImage=" . ($row["id"]-1) . ">Previous image</a> | <a href=http://www.mais.mat.br/webQDA/viewImagewithBites.php?idImage=" . ($row["id"]+1) . ">Next image</a> | <a href=http://www.mais.mat.br/webQDA/uploadedTogether.php?date=" . $d . ">Other images uploaded with this one</a></div>";
