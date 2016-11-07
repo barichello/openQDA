@@ -25,6 +25,11 @@ body {
     color: #777777;
 }
 
+a.deletelink {
+    font-size: 0.7em;
+    color: #777777;
+}
+
 a {
     color: #468847;
     font-family: "Open Sans Light", sans-serif;
