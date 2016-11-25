@@ -55,7 +55,7 @@ while($row3 = mysqli_fetch_assoc($result3)) {
 echo "<br>\n<span class='fieldname'>actions:</span><a href='editAttributes.php?idImage=" . $_GET["idImage"] . "'>Edit attributes</a> | <a href='applyCodes.php?idImage=" . $_GET["idImage"] . "'>Apply code</a>";
 
 //drawing the image on the canvas
-list($width, $height) = getimagesize("images/" . $row["name"]);
+list($width, $height) = getimagesize("sources/" . $row["name"]);
 echo "<canvas id='canvas0' style='margin: 20px 0 20px 0;' width=800 height=" . ($height*800)/$width . "></canvas>\n";
 
 //espaco pra colocar as descricoes dos pedacos codificados
@@ -63,7 +63,7 @@ echo "\n<br>\n<span class='fieldname'>Codings:</span>\n";
 echo "<div id='abouttheCodes'></div>";
 
 //comeco dos scripts pra desenhar os retangulos
-echo "<script> var x = document.createElement('img');\n x.src = 'images/" . $row["name"]  . "';\n";
+echo "<script> var x = document.createElement('img');\n x.src = 'sources/" . $row["name"]  . "';\n";
 echo "document.getElementById('canvas0').getContext('2d').drawImage(x,0,0,800," . $height*(800/$width) . ");\n";
 
 //pegando as regioes codificadas dessa imagem - ACRESCENTEI MEMO

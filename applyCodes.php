@@ -80,8 +80,8 @@ while($row3 = mysqli_fetch_assoc($result3)) {
 }
 
 //echo "<img style='max-width: 800;' src='images/" . $row["name"] . "'>\n";
-list($width, $height) = getimagesize("images/" . $row["name"]);
-echo "<img src='images/" . $row['name'] .  "' id='image' style='margin: 20px 0 20px 0; width:800px'>\n";
+list($width, $height) = getimagesize("sources/" . $row["name"]);
+echo "<img src='sources/" . $row['name'] .  "' id='image' style='margin: 20px 0 20px 0; width:800px'>\n";
 echo "<span style='display:none;' id='altura'>" . $height . "</span>";
 echo "<span style='display:none;' id='largura'>" . $width . "</span>";
 //montando o seletor de codigos disponiveis
