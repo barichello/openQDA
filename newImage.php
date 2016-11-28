@@ -7,11 +7,11 @@
 <script>
 function checkImage() {
   var img = new Image();
-  img.src = "images/" + document.getElementById('name').value;
+  img.src = "sources/" + document.getElementById('name').value;
   img.style = "visibility: hidden;";
   img.onerror = function() {
     // doesn't exist or error loading
-    alert('no image: images/' + document.getElementById('name').value);
+    alert('no image: sources/' + document.getElementById('name').value);
     };
   img.onload = function() {
     alert('image OK');
@@ -38,6 +38,7 @@ function checkImage() {
     <table border=0>
         <tr><td><span class='fieldname'>file:</span></td><td><input type="text" id="name" name="name" size="40"><input type="button" onclick="checkImage();" value="check"></td></tr>
         <tr><td><span class='fieldname'>owner:</span></td><td><input type="text" id="owner" name="owner" size="20" value="Leo"></td></tr>
+        <tr><td><span class='fieldname'>type:</span></td><td><input type="text" id="type" name="type" size="1" value="i"></td></tr>
         <tr><td><span class='fieldname'>status:</span></td><td><input type="text" id="status" name="status" size="5" value="1"></td></tr>
         <tr><td><span class='fieldname'>description:</span></td><td><textarea rows=4 cols=60 id="memo" name="memo" placeholder="Description of the image (remember that you can use attributes)"></textarea></td></tr>
 

@@ -10,7 +10,9 @@ if (!$conn) {
     die("Connection failed: " . mysql_error());
 }
 
-$sql = "INSERT INTO imageCoding (images_id, codes_id, x1,y1,x2,y2,owner,status,memo) VALUES ('" . $_POST["images_id"] . "','" . $_POST["codes_id"] . "','" . $_POST["x1"] . "','" . $_POST["y1"] . "','" . $_POST["x2"] . "','" . $_POST["y2"] . "','" . $_POST["owner"] . "','" . $_POST["status"] . "','" . $_POST["memo"] ."')";
+$boundaries = $_POST["x1"] . ":" . $_POST["y1"] . ":" . $_POST["x2"] . ":" . $_POST["y2"];
+
+$sql = "INSERT INTO sourceCoding (source_id, codes_id, boundaries, owner, status, memo) VALUES ('" . $_POST["source_id"] . "','" . $_POST["codes_id"] . "','" . $boundaries . "','" . $_POST["owner"] . "','" . $_POST["status"] . "','" . $_POST["memo"] ."')";
 
 if (mysqli_query($conn, $sql)) {
     echo "New coding registered!";

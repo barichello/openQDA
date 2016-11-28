@@ -29,11 +29,11 @@ CREATE TABLE IF NOT EXISTS `codes` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `imageAttributes`
+-- Table structure for table `sourceAttributes`
 --
 
-CREATE TABLE IF NOT EXISTS `imageAttributes` (
-  `images_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `sourceAttributes` (
+  `source_id` int(11) NOT NULL,
   `attributes_id` int(11) NOT NULL,
   `value` text COLLATE latin1_general_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
@@ -41,16 +41,13 @@ CREATE TABLE IF NOT EXISTS `imageAttributes` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `imageCoding`
+-- Table structure for table `sourceCoding`
 --
 
-CREATE TABLE IF NOT EXISTS `imageCoding` (
-  `images_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `sourceCoding` (
+  `source_id` int(11) NOT NULL,
   `codes_id` int(11) NOT NULL,
-  `x1` int(11) NOT NULL,
-  `y1` int(11) NOT NULL,
-  `x2` int(11) NOT NULL,
-  `y2` int(11) NOT NULL,
+  `boundaries` varchar(64) NOT NULL,
   `owner` text COLLATE latin1_general_ci NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int(11) NOT NULL,
@@ -61,12 +58,13 @@ CREATE TABLE IF NOT EXISTS `imageCoding` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `images`
+-- Table structure for table `sources`
 --
 
-CREATE TABLE IF NOT EXISTS `images` (
+CREATE TABLE IF NOT EXISTS `sources` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text COLLATE latin1_general_ci NOT NULL,
+  `type` char(1) COLLATE latin1_general_ci NOT NULL,
   `owner` text COLLATE latin1_general_ci NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int(11) NOT NULL,

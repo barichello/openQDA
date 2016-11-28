@@ -36,7 +36,6 @@ if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
         echo "<div class='item'>\n";
         echo "<span class='fieldname'>id:</span>" . $row["id"]. "\n<br>\n <span class='fieldname'>Name:</span>" . $row["name"]. "\n<br>\n<span class='fieldname'>Description:</span>" . $row["memo"] . " \n<br>\n<span class='fieldname'>Color:</span> " . $row["color"] . "\n<br>\n";
-        echo "<span class='fieldname'>actions:</span><a href=viewCodedBites.php?id=" . $row["id"] . ">view coded sections</a>\n<br><br>\n";
         echo "</div>\n";
     }
 } else {

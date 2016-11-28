@@ -33,7 +33,7 @@ function ajax_post(){
 	    }
     }
     // Send the data to PHP now... and wait for response to update the status div
-    vars = "images_id=" + document.getElementById('images_id').value + "&codes_id=" + document.getElementById('codes_id').value + "&x1=" + document.getElementById('x1').value + "&x2=" + document.getElementById('x2').value + "&y1=" + document.getElementById('y1').value + "&y2=" + document.getElementById('y2').value + "&memo=" + document.getElementById('memo').value + "&owner=" + document.getElementById('owner').value + "&status=" + document.getElementById('status').value
+    vars = "source_id=" + document.getElementById('source_id').value + "&codes_id=" + document.getElementById('codes_id').value + "&x1=" + document.getElementById('x1').value + "&x2=" + document.getElementById('x2').value + "&y1=" + document.getElementById('y1').value + "&y2=" + document.getElementById('y2').value + "&memo=" + document.getElementById('memo').value + "&owner=" + document.getElementById('owner').value + "&status=" + document.getElementById('status').value
     hr.send(vars); // Actually execute the request
     document.getElementById("result").innerHTML = "processing...";
 }
@@ -66,20 +66,19 @@ if (!$conn) {
 }
 
 //pegando a imagem
-$sql = "SELECT * FROM images WHERE id='" . $_GET["idImage"] . "'";
+$sql = "SELECT * FROM sources WHERE id='" . $_GET["idImage"] . "'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
 //basic info
 echo "<span class='fieldname'>ID: </span>" . $row["id"]. "<br/><span class='fieldname'>Description: </span>" . $row["memo"]. "<br/>";
 //getting and showing the attributes
-$result3 = mysqli_query($conn, "SELECT * FROM (SELECT imageAttributes.value, attributes.name, imageAttributes.images_id FROM imageAttributes INNER JOIN attributes ON imageAttributes.attributes_id=attributes.id)fusao WHERE images_id=" . $_GET["idImage"]);
+$result3 = mysqli_query($conn, "SELECT * FROM (SELECT sourceAttributes.value, attributes.name, sourceAttributes.source_id FROM sourceAttributes INNER JOIN attributes ON sourceAttributes.attributes_id=attributes.id)fusao WHERE source_id=" . $_GET["idImage"]);
 echo "<span class='fieldname'>Atributes:</span>";
 while($row3 = mysqli_fetch_assoc($result3)) {
     echo $row3["name"] . "=" . $row3["value"] . ", ";
 }
 
-//echo "<img style='max-width: 800;' src='images/" . $row["name"] . "'>\n";
 list($width, $height) = getimagesize("sources/" . $row["name"]);
 echo "<img src='sources/" . $row['name'] .  "' id='image' style='margin: 20px 0 20px 0; width:800px'>\n";
 echo "<span style='display:none;' id='altura'>" . $height . "</span>";
@@ -118,7 +117,7 @@ $(document).ready(function () {
 
 <input type=hidden id="owner" value="leo">
 <input type=hidden id="status" value=1>
-<input type=hidden id="images_id" value=<?php echo "'" . $_GET["idImage"] . "'";?>>
+<input type=hidden id="source_id" value=<?php echo "'" . $_GET["idImage"] . "'";?>>
 X<sub>1</sub> = <input type=text size=5 id="x1" name="x1">; Y<sub>1</sub> = <input type=text size=5 id="y1" name="y1"> <br/>
 X<sub>2</sub> = <input type=text size=5 id="x2" name="x2">; Y<sub>2</sub> = <input type=text size=5 id="y2" name="y2"> <br/>
 <textarea id="memo" cols=30 rows=5 placeholder="Comment about the coding here..."></textarea> <br/>

@@ -40,25 +40,25 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 //getting the lastest date
-$sql = "SELECT date FROM images ORDER BY date DESC LIMIT 1";
+$sql = "SELECT date FROM sources ORDER BY date DESC LIMIT 1";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 $d = $row["date"];
 echo "<br>" . $d . "<br>";
 
 //getting the registers inserted at the same date as the latest
-$sql = "SELECT id, name, memo, date FROM images WHERE date='" . $d . "'";
+$sql = "SELECT id, name, memo, date FROM sources WHERE date='" . $d . "'";
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
     // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
-        //basic info from the images table
+        //basic info from the sources table
         echo "<div class='item'>";
         echo "<img src='sources/" . $row["name"]. "'>\n";
         echo "<span class='fieldname'>ID: </span>" . $row["id"]. "<br/><span class='fieldname'>Description: </span>" . $row["memo"]. "<br/>";
         //getting and showing the attributes
-        $result2 = mysqli_query($conn, "SELECT * FROM (SELECT imageAttributes.value, attributes.name, imageAttributes.images_id FROM imageAttributes INNER JOIN attributes ON imageAttributes.attributes_id=attributes.id)fusao WHERE images_id=" . $row["id"]);
+        $result2 = mysqli_query($conn, "SELECT * FROM (SELECT sourceAttributes.value, attributes.name, sourceAttributes.source_id FROM sourceAttributes INNER JOIN attributes ON sourceAttributes.attributes_id=attributes.id)fusao WHERE source_id=" . $row["id"]);
         echo "<span class='fieldname'>Atributes:</span>";
         while($row2 = mysqli_fetch_assoc($result2)) {
             echo $row2["name"] . "=" . $row2["value"] . ", ";

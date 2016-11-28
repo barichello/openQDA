@@ -32,7 +32,7 @@
 
     foreach( $idAtributos as $i => $a ) {
         echo $a . "=" . $valores[$i] . "\n<br>\n";
-        $sql = "UPDATE imageAttributes SET value='" . $valores[$i] . "' WHERE images_id=" . $_GET["idImage"] . " AND attributes_id=" . $a;
+        $sql = "UPDATE sourceAttributes SET value='" . $valores[$i] . "' WHERE source_id=" . $_GET["idImage"] . " AND attributes_id=" . $a;
         $result = mysqli_query($conn, $sql);
         if (mysqli_affected_rows($conn) != 0) {
             echo "<h4>Attribute updated.</h4>\n";

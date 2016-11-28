@@ -33,7 +33,7 @@ $arrayNomes = explode(';',$_POST["name"]);
 foreach ($arrayNomes as $n => $nome) {
 
         //inserindo a imagem
-        $sql = "INSERT INTO images (name, owner, status, memo) VALUES ('" . $nome . "','" . $_POST["owner"] . "', 1, '" . $_POST["memo"] . "')";
+        $sql = "INSERT INTO sources (name, owner, status, memo) VALUES ('" . $nome . "','" . $_POST["owner"] . "', 1, '" . $_POST["memo"] . "')";
         if (mysqli_query($conn, $sql)) {
             echo "<br>New record created successfully!<br>";
             $last_id = mysqli_insert_id($conn);
@@ -46,7 +46,7 @@ foreach ($arrayNomes as $n => $nome) {
         $vetorValorAtributos = $_POST["valorAtributos"];
         foreach ($vetorAtributos as $i => $atributo) {
             if ($vetorValorAtributos[$i]!='') {
-                $sql = "INSERT INTO imageAttributes (images_id, attributes_id, value) VALUES ('" . $last_id . "','" . $atributo . "','" . $vetorValorAtributos[$i] . "')";
+                $sql = "INSERT INTO sourceAttributes (source_id, attributes_id, value) VALUES ('" . $last_id . "','" . $atributo . "','" . $vetorValorAtributos[$i] . "')";
                 if (mysqli_query($conn, $sql)) {
                     echo "Attribute created, ";
                 } else {
@@ -54,7 +54,7 @@ foreach ($arrayNomes as $n => $nome) {
                 }
             }
             else {
-                $sql = "INSERT INTO imageAttributes (images_id, attributes_id) VALUES ('" . $last_id . "','" . $atributo . "')";
+                $sql = "INSERT INTO sourceAttributes (source_id, attributes_id) VALUES ('" . $last_id . "','" . $atributo . "')";
                 if (mysqli_query($conn, $sql)) {
                     echo "Attribute created, ";
                 } else {

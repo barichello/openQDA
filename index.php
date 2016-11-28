@@ -30,7 +30,7 @@ if (!$conn) {
 }
 
 //images
-$sql = "SELECT date FROM images ORDER BY date DESC";
+$sql = "SELECT date FROM sources ORDER BY date DESC";
 $result = mysqli_query($conn, $sql);
 echo "<span class='fieldname'>Total of images: </span>" . mysqli_num_rows($result) . "\n<br>\n";
 $row = mysqli_fetch_assoc($result);
@@ -42,7 +42,7 @@ $result = mysqli_query($conn, $sql);
 echo "<span class='fieldname'>Total of codes available: </span>" . mysqli_num_rows($result) . "\n<br>\n";
 
 //codings
-$sql = "SELECT date FROM imageCoding ORDER BY date DESC";
+$sql = "SELECT date FROM sourceCoding ORDER BY date DESC";
 $result = mysqli_query($conn, $sql);
 echo "<span class='fieldname'>Total of codings done: </span>" . mysqli_num_rows($result) . "\n<br>\n";
 $row = mysqli_fetch_assoc($result);

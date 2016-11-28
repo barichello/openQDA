@@ -39,7 +39,7 @@ if (!$conn) {
 }
 
 //pegando a imagem
-$sql = "SELECT * FROM images WHERE id='" . $_GET["idImage"] . "'";
+$sql = "SELECT * FROM sources WHERE id='" . $_GET["idImage"] . "'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
@@ -47,7 +47,7 @@ $row = mysqli_fetch_assoc($result);
 echo "<span class='fieldname'>ID: </span>" . $row["id"] . "<br/><span class='fieldname'>Description: </span>" . $row["memo"]. "<br/>";
 
 //getting and showing the attributes
-$result3 = mysqli_query($conn, "SELECT * FROM (SELECT imageAttributes.value, attributes.name, imageAttributes.images_id FROM imageAttributes INNER JOIN attributes ON imageAttributes.attributes_id=attributes.id)fusao WHERE images_id=" . $_GET["idImage"]);
+$result3 = mysqli_query($conn, "SELECT * FROM (SELECT sourceAttributes.value, attributes.name, sourceAttributes.source_id FROM sourceAttributes INNER JOIN attributes ON sourceAttributes.attributes_id=attributes.id)fusao WHERE source_id=" . $_GET["idImage"]);
 echo "<span class='fieldname'>Atributes:</span>";
 while($row3 = mysqli_fetch_assoc($result3)) {
     echo $row3["name"] . "=" . $row3["value"] . ", ";
@@ -67,7 +67,7 @@ echo "<script> var x = document.createElement('img');\n x.src = 'sources/" . $ro
 echo "document.getElementById('canvas0').getContext('2d').drawImage(x,0,0,800," . $height*(800/$width) . ");\n";
 
 //pegando as regioes codificadas dessa imagem - ACRESCENTEI MEMO
-$sql2 = "SELECT * FROM ( SELECT images_id, codes_id, x1, y1, x2, y2, name, color, imageCoding.memo FROM imageCoding INNER JOIN codes ON imageCoding.codes_id = codes.id)fusao WHERE images_id=" . $_GET["idImage"];
+$sql2 = "SELECT * FROM ( SELECT source_id, codes_id, boundaries, name, color, sourceCoding.memo FROM sourceCoding INNER JOIN codes ON sourceCoding.codes_id = codes.id)fusao WHERE source_id=" . $_GET["idImage"];
 $result2 = mysqli_query($conn, $sql2);
 
 //desenhando os retangulos na imagem
@@ -75,17 +75,22 @@ echo "var canvas = document.getElementById('canvas0'); var ctx = canvas.getConte
 while($row2 = mysqli_fetch_assoc($result2)) {
     echo "ctx.strokeStyle='" . $row2["color"] . "';\n";
     echo "ctx.fillStyle='" . $row2["color"] . "';\n";
-    echo "ctx.strokeRect(" . $row2["x1"]*(800/$width) .  "," . $row2["y1"]*(800/$width) . "," . ($row2["x2"]-$row2["x1"])*(800/$width) . "," . ($row2["y2"]-$row2["y1"])*(800/$width) . ");\n";
+    list($x1, $y1, $x2, $y2) = explode(":", $row2["boundaries"]);
+    $x1 = (int)$x1;
+    $y1 = (int)$y1;
+    $x2 = (int)$x2;
+    $y2 = (int)$y2;
+    echo "ctx.strokeRect(" . $x1*(800/$width) .  "," . $y1*(800/$width) . "," . ($x2-$x1)*(800/$width) . "," . ($y2-$y1)*(800/$width) . ");\n";
     echo "ctx.fillText('" . $row2["name"] . "'," . $row2["x1"]*(800/$width) .  "," . $row2["y1"]*(800/$width) . ");\n"; //trocar ID por nome do code
     //para mostrar os dados dos codes antes da imagem
     echo "document.getElementById('abouttheCodes').innerHTML += '<span style=color:" . $row2["color"] . ";>" . $row2["name"] . "</span>: " . $row2["memo"] . "';";
-    echo "document.getElementById('abouttheCodes').innerHTML += ' <a class=deletelink href=doDeleteCoding.php?imageId=" . $row2["images_id"] . "&codeId="  . $row2["codes_id"] .  ">[delete code]</a></br>';";
+    echo "document.getElementById('abouttheCodes').innerHTML += ' <a class=deletelink href=doDeleteCoding.php?imageId=" . $row2["source_id"] . "&codeId="  . $row2["codes_id"] .  ">[delete code]</a></br>';";
     }
 
     
 echo "</script>";
 $d = str_replace(" ","x",$row["date"]); //tweaking the string to send by GET
-echo "<div></br><span class='fieldname'>Navigate: </span><a href=http://www.mais.mat.br/webQDA/viewImagewithBites.php?idImage=" . ($row["id"]-1) . ">Previous image</a> | <a href=http://www.mais.mat.br/webQDA/viewImagewithBites.php?idImage=" . ($row["id"]+1) . ">Next image</a> | <a href=http://www.mais.mat.br/webQDA/uploadedTogether.php?date=" . $d . ">Other images uploaded with this one</a></div>";
+echo "<div></br><span class='fieldname'>Navigate: </span><a href=http://www.mais.mat.br/webQDA/viewImagewithBites.php?idImage=" . ($row["id"]-1) . ">Previous image</a> | <a href=http://www.mais.mat.br/webQDA/viewImagewithBites.php?idImage=" . ($row["id"]+1) . ">Next image</a> | <a href=http://www.mais.mat.br/webQDA/uploadedTogether.php?date=" . $d . ">Other sources uploaded with this one</a></div>";
     
 mysqli_close($conn);
 ?> 

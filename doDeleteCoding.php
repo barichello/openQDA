@@ -29,7 +29,7 @@ if (!$conn) {
 }
 
 //deleting coding
-$sql = "DELETE FROM imageCoding WHERE images_id=" . $_GET["imageId"] . " AND codes_id=" . $_GET["codeId"];
+$sql = "DELETE FROM sourceCoding WHERE source_id=" . $_GET["imageId"] . " AND codes_id=" . $_GET["codeId"];
 if (mysqli_query($conn, $sql)) {
     echo "<br>Coding removed<br>";
     $last_id = mysqli_insert_id($conn);

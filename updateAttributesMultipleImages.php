@@ -10,7 +10,7 @@ function checkImages() {
     var listaNames = document.getElementById("name").value;
     var arrayNomes = listaNames.split(";");
     for (i = 0; i < arrayNomes.length; i++) {
-        img.src = "images/" + arrayNomes[i];
+        img.src = "sources/" + arrayNomes[i];
         img.style = "visibility: hidden;";
         img.onerror = function() {
             alert("Algum nome de arquivo esta errado");

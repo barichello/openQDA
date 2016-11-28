@@ -40,8 +40,8 @@ if (mysqli_num_rows($result) > 0) {
         echo "<span class='fieldname'>id:</span>" . $row["id"] . "<br>\n";
         echo "<span class='fieldname'>Name:</span>" . $row["name"]. "<br>\n<span class='fieldname'>Description:</span>" . $row["memo"] . "<br>\n";
         echo "<span class='fieldname'>Registered values:</span>";
-        //printing the values for this attribute in table imageAttributes
-        $result2 = mysqli_query($conn, "SELECT DISTINCT value FROM imageAttributes WHERE attributes_id='" . $row["id"] . "'");
+        //printing the values for this attribute in table sourceAttributes
+        $result2 = mysqli_query($conn, "SELECT DISTINCT value FROM sourceAttributes WHERE attributes_id='" . $row["id"] . "'");
         while($row2 = mysqli_fetch_assoc($result2)) {
             echo $row2["value"] . ", ";
         }

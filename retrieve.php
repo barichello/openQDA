@@ -27,11 +27,9 @@ function ajax_post(){
 			document.getElementById("result").innerHTML = return_data;
 	    }
     }
-    // Send the data to PHP now... and wait for response to update the status div
-    //vars = "string=SELECT DISTINCT * FROM images WHERE images.id IN (select images_id FROM imageAttributes WHERE attributes_id=2 AND value='8 set 4') AND images.id IN (SELECT images_id FROM imageAttributes WHERE attributes_id=1 AND value='Janet')";
     
     //montando a string do mysql
-    var comando = "string=SELECT DISTINCT * FROM images"; //basico
+    var comando = "string=SELECT DISTINCT * FROM sources"; //basico
     //primeiro os atributos
     var conector = 0;
     var listIds=document.getElementsByName('idAttributes[]');
@@ -45,7 +43,7 @@ function ajax_post(){
             } else {
                 comando = comando + " AND";
             }
-            comando = comando + " images.id IN (SELECT images_id FROM imageAttributes WHERE attributes_id=" + listIds[i].value + " AND value='" + listValues[i].value + "')";
+            comando = comando + " sources.id IN (SELECT source_id FROM sourceAttributes WHERE attributes_id=" + listIds[i].value + " AND value='" + listValues[i].value + "')";
         }
     }
     //agora os codes
@@ -56,7 +54,7 @@ function ajax_post(){
         } else {
             comando = comando + " AND";
         }
-        comando = comando + " images.id IN (SELECT images_id FROM imageCoding WHERE codes_id=" + document.getElementById("codes_id").value + ")";
+        comando = comando + " sources.id IN (SELECT source_id FROM sourceCoding WHERE codes_id=" + document.getElementById("codes_id").value + ")";
     }
                 
     // Actually execute the request
@@ -100,7 +98,7 @@ while($row = mysqli_fetch_assoc($result)) {
         echo "<span class='discrete'>" . $row["memo"] . "</span>\n<br>";
         //getting the values of this attribute
         echo "<span class='discrete'>Values used: ";
-        $result2 = mysqli_query($conn, "SELECT DISTINCT value FROM imageAttributes WHERE attributes_id='" . $row["id"] . "'");
+        $result2 = mysqli_query($conn, "SELECT DISTINCT value FROM sourceAttributes WHERE attributes_id='" . $row["id"] . "'");
         while($row2 = mysqli_fetch_assoc($result2)) {
             echo $row2["value"] . ", ";
         }

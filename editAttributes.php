@@ -31,7 +31,7 @@ if (!$conn) {
 }
 
 //montando o seletor de codigos disponiveis
-$sql = "SELECT * FROM (SELECT attributes.id, attributes.name, attributes.memo, imageAttributes.value, imageAttributes.images_id FROM attributes LEFT JOIN imageAttributes ON attributes.id=imageAttributes.attributes_id)fusao WHERE images_id =" . $_GET["idImage"];
+$sql = "SELECT * FROM (SELECT attributes.id, attributes.name, attributes.memo, sourceAttributes.value, sourceAttributes.sources_id FROM attributes LEFT JOIN sourceAttributes ON attributes.id=sourceAttributes.attributes_id)fusao WHERE sources_id =" . $_GET["idImage"];
 $result = mysqli_query($conn, $sql);
 echo "<form method=GET action='updateAttributes.php'>\n<br>\n";
 echo "<table border=0 valign='top'>\n";
@@ -44,10 +44,10 @@ while($row = mysqli_fetch_assoc($result)) {
 echo "<tr><td colspan=3><input type='Submit' value='Edit'></td></tr>\n<table>\n</form>\n";
 
 //getting the name of the image and inserting it
-$sql = "SELECT name FROM images WHERE id='" . $_GET["idImage"] . "'";
+$sql = "SELECT name FROM sources WHERE id='" . $_GET["idImage"] . "'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
-echo "<img style='max-width: 800' src='images/" . $row["name"] . "' style='margin: 20px auto 20px auto'>\n";
+echo "<img style='max-width: 800' src='sources/" . $row["name"] . "' style='margin: 20px auto 20px auto'>\n";
 
 mysqli_close($conn);
 ?> 
