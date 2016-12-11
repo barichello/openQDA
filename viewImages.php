@@ -32,7 +32,6 @@ img {
 
 <?php
 include("connection.php");
-
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
@@ -44,18 +43,21 @@ $sql = "SELECT date FROM sources ORDER BY date DESC LIMIT 1";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 $d = $row["date"];
-echo "<br>" . $d . "<br>";
-
+echo "</br>Date: " . $d . "</br></br>";
 //getting the registers inserted at the same date as the latest
-$sql = "SELECT id, name, memo, date FROM sources WHERE date='" . $d . "'";
+$sql = "SELECT id, name, memo, date, type FROM sources WHERE date='" . $d . "'";
 $result = mysqli_query($conn, $sql);
-
 if (mysqli_num_rows($result) > 0) {
     // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
         //basic info from the sources table
         echo "<div class='item'>";
-        echo "<img src='sources/" . $row["name"]. "'>\n";
+        if ($row["type"]=="i") {
+                echo "<img src='sources/" . $row["name"]. "'>\n";
+                }
+        if ($row["type"]=="v") {
+                echo "<img src='css/video-icon.png'>\n";
+                }        
         echo "<span class='fieldname'>ID: </span>" . $row["id"]. "<br/><span class='fieldname'>Description: </span>" . $row["memo"]. "<br/>";
         //getting and showing the attributes
         $result2 = mysqli_query($conn, "SELECT * FROM (SELECT sourceAttributes.value, attributes.name, sourceAttributes.source_id FROM sourceAttributes INNER JOIN attributes ON sourceAttributes.attributes_id=attributes.id)fusao WHERE source_id=" . $row["id"]);
@@ -69,8 +71,6 @@ if (mysqli_num_rows($result) > 0) {
 } else {
     echo "0 results";
 }
-
-
 mysqli_close($conn);
 ?> 
 
