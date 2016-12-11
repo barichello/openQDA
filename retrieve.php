@@ -89,7 +89,7 @@ if (!$conn) {
 //montando a lista de atributos
 $sql = "SELECT * FROM attributes";
 $result = mysqli_query($conn, $sql);
-echo "<h2>Retrieve images</h2>";
+echo "<h2>Attributes</h2>";
 echo "<input type=hidden name='idImage' value='" . $_GET["idImage"] . "'>\n";
 $i = 0;
 while($row = mysqli_fetch_assoc($result)) {
