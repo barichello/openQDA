@@ -35,6 +35,7 @@ function drawCodings(list) {
                 document.getElementById('codes').appendChild(rect);
             }
         }
+        document.getElementById('codes').style.height = (y0+10);
 }
 </script>
 
