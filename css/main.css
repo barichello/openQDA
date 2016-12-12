@@ -114,6 +114,12 @@ input {
     margin: 4px;
 }
 
+range {
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
 textarea {
     border: 2px solid #777777;
     border-radius: 4px;
