@@ -6,15 +6,6 @@
 
 <link rel="stylesheet" type="text/css" href="css/imgareaselect-default.css" />
 
-<style>
-img {
-    float: left;
-    margin: 0 20px 10px 0;
-    width: 150px;
-    }
-.item {
-    }
-</style>
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/jquery.imgareaselect.pack.js"></script>
 
@@ -65,13 +56,15 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-//pegando a imagem
+//getting the source
 $sql = "SELECT * FROM sources WHERE id='" . $_GET["idImage"] . "'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
 //basic info
 echo "<span class='fieldname'>ID: </span>" . $row["id"]. "<br/><span class='fieldname'>Description: </span>" . $row["memo"]. "<br/>";
+echo "<span style='display:none;' id='type'>" . $row["type"] . "</span>";
+
 //getting and showing the attributes
 $result3 = mysqli_query($conn, "SELECT * FROM (SELECT sourceAttributes.value, attributes.name, sourceAttributes.source_id FROM sourceAttributes INNER JOIN attributes ON sourceAttributes.attributes_id=attributes.id)fusao WHERE source_id=" . $_GET["idImage"]);
 echo "<span class='fieldname'>Atributes:</span>";
@@ -79,50 +72,85 @@ while($row3 = mysqli_fetch_assoc($result3)) {
     echo $row3["name"] . "=" . $row3["value"] . ", ";
 }
 
-list($width, $height) = getimagesize("sources/" . $row["name"]);
-echo "<img src='sources/" . $row['name'] .  "' id='image' style='margin: 20px 0 20px 0; width:800px'>\n";
-echo "<span style='display:none;' id='altura'>" . $height . "</span>";
-echo "<span style='display:none;' id='largura'>" . $width . "</span>";
-//montando o seletor de codigos disponiveis
+//image
+if ($row["type"]=="i") {
+    list($width, $height) = getimagesize("sources/" . $row["name"]);
+    echo "<img src='sources/" . $row['name'] .  "' id='image' style='margin: 20px 0 20px 0; width:800px'>\n";
+    echo "<span style='display:none;' id='altura'>" . $height . "</span>";
+    echo "<span style='display:none;' id='largura'>" . $width . "</span>";
+}
+
+//video
+if ($row["type"]=="v") {
+    echo "<video id='my-video' class='video-js vjs-polyzor-skin' controls preload='metadata' width='800' height='600'><source src='sources/" . $row["name"] . "' type='video/mp4'></video>\n";
+    echo "<br><span class='fieldname'>Select in the sliders below the begin and the end of the section:</span><br>";
+    echo "<input type='range' id='rangeBegin' min=0 max=100 style='width:800px'><br>";
+    echo "<input type='range' id='rangeEnd' min=0 max=100 style='width:800px'>";
+}
+
+//creating the code selector
 $sql = "SELECT name, id FROM codes";
 $result = mysqli_query($conn, $sql);
-echo "<div id='coords' class='controls' style='width:90%'>";
-
-echo "<select id='codes_id'>";
+echo "<div style='float: left;'>";
+echo "<span class='fieldname'>Select the code:</span><select id='codes_id'>";
 if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
         echo "<option value='" . $row["id"] . "'>" . $row["name"] . "</option>";
     }
 }
 echo "</select>\n<br>\n";
-
 mysqli_close($conn);
 ?> 
+<center><input type=Submit value="Apply code" onclick="ajax_post();"></center>
+</div>
 
-<script type="text/javascript">
-$(document).ready(function () {
-    $('img#image').imgAreaSelect({
-        handles: true,
-        onSelectEnd: function (img, selection) {
-            document.getElementById("x1").value = selection.x1;
-            document.getElementById("y1").value = selection.y1;
-            document.getElementById("x2").value = selection.x2;
-            document.getElementById("y2").value = selection.y2;
-        },
-        imageHeight: document.getElementById("altura").innerHTML,
-        imageWidth: document.getElementById("largura").innerHTML
-    });
-});
-</script>
+<div style='float: left;'>
+<textarea id="memo" cols=70 rows=3 placeholder="Comment about the coding here..."></textarea>
+</div>
 
+
+
+<!--hidden fields with basic info for the coding-->
 <input type=hidden id="owner" value="leo">
 <input type=hidden id="status" value=1>
-<input type=hidden id="source_id" value=<?php echo "'" . $_GET["idImage"] . "'";?>>
-X<sub>1</sub> = <input type=text size=5 id="x1" name="x1">; Y<sub>1</sub> = <input type=text size=5 id="y1" name="y1"> <br/>
-X<sub>2</sub> = <input type=text size=5 id="x2" name="x2">; Y<sub>2</sub> = <input type=text size=5 id="y2" name="y2"> <br/>
-<textarea id="memo" cols=30 rows=5 placeholder="Comment about the coding here..."></textarea> <br/>
-<input type=Submit value="Apply code" onclick="ajax_post();"> <br/>
+<input type=hidden id="source_id" value=<?php echo "'" . $_GET["idImage"] . "'";?> >
+
+<!--hidden fields to keep the boundaries-->
+<input type=hidden id="x1" name="x1">
+<input type=hidden id="y1" name="y1">
+<input type=hidden id="x2" name="x2">
+<input type=hidden id="y2" name="y2">
+
+<script type="text/javascript">
+if (document.getElementById("type").innerHTML == "i") {
+    $(document).ready(function () {
+        $('img#image').imgAreaSelect({
+            handles: true,
+            onSelectEnd: function (img, selection) {
+                document.getElementById("x1").value = selection.x1;
+                document.getElementById("y1").value = selection.y1;
+                document.getElementById("x2").value = selection.x2;
+                document.getElementById("y2").value = selection.y2;
+            },
+            imageHeight: document.getElementById("altura").innerHTML,
+            imageWidth: document.getElementById("largura").innerHTML
+        });
+    });
+}
+
+if (document.getElementById("type").innerHTML == "v") {
+    
+}
+
+</script>
+
+<br>
 <span id="result"></span>
+<br>
+
+<?php
+echo "\n<div style='clear:both;'>\n<br><br>\n<span class='fieldname'>actions:</span><a href='viewImagewithBites.php?idImage=" . $_GET["idImage"] . "'>Back</a> | <a href='editAttributes.php?idImage=" . $_GET["idImage"] . "'>Edit attributes</a>\n<br/>\n";
+?>
 
 </div>
 
