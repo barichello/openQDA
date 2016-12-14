@@ -20,12 +20,16 @@ Codes: they are like tags that can be applied to sections (not sources). This is
 
 # Important notes
 
-1) The software is only tested on Firefox;
+1) The software is only tested on Firefox
+
 2) Modify and delete capabilities are not fully implemented across the software;
 
 # Installation
 
 1) Copy the files to a folder in your webserver;
-2) Create the databace as specified in the file database.txt;
-3) Adjust the info in the file connection.php
+
+2) Create the database as specified in the file database.txt;
+
+3) Adjust the info in the file connection.php;
+
 4) Run it in your browser!
