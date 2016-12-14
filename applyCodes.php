@@ -5,9 +5,13 @@
 <link rel="stylesheet" type="text/css" href="css/main.css">
 
 <link rel="stylesheet" type="text/css" href="css/imgareaselect-default.css" />
-
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/jquery.imgareaselect.pack.js"></script>
+
+<link href="http://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
+<link rel="stylesheet" href="css/videoplayerskin/polyzor-skin.min.css">
+
+<script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
 
 <script>
 function ajax_post(){
@@ -24,9 +28,16 @@ function ajax_post(){
 	    }
     }
     // Send the data to PHP now... and wait for response to update the status div
-    vars = "source_id=" + document.getElementById('source_id').value + "&codes_id=" + document.getElementById('codes_id').value + "&x1=" + document.getElementById('x1').value + "&x2=" + document.getElementById('x2').value + "&y1=" + document.getElementById('y1').value + "&y2=" + document.getElementById('y2').value + "&memo=" + document.getElementById('memo').value + "&owner=" + document.getElementById('owner').value + "&status=" + document.getElementById('status').value
+    vars = "source_id=" + document.getElementById('source_id').value + "&codes_id=" + document.getElementById('codes_id').value + "&x1=" + document.getElementById('x1').value + "&x2=" + document.getElementById('x2').value + "&y1=" + document.getElementById('y1').value + "&y2=" + document.getElementById('y2').value + "&memo=" + document.getElementById('memo').value + "&owner=" + document.getElementById('owner').value + "&status=" + document.getElementById('status').value + "&type=" + document.getElementById('type').innerHTML;
     hr.send(vars); // Actually execute the request
     document.getElementById("result").innerHTML = "processing...";
+}
+
+//function to transfer the boundaris of the range to 
+function boundariesVideo() {
+    var p = videojs('my-video');
+    document.getElementById('x1').value = Math.round(document.getElementById('rangeBegin').value*p.duration()/100);
+    document.getElementById('y1').value = Math.round(document.getElementById('rangeEnd').value*p.duration()/100);
 }
 </script>
 
@@ -82,10 +93,11 @@ if ($row["type"]=="i") {
 
 //video
 if ($row["type"]=="v") {
-    echo "<video id='my-video' class='video-js vjs-polyzor-skin' controls preload='metadata' width='800' height='600'><source src='sources/" . $row["name"] . "' type='video/mp4'></video>\n";
+    echo "<video id='my-video' class='video-js vjs-polyzor-skin' controls style='width: 800px; height: 600px;' preload='metadata'><source src='sources/" . $row["name"] . "' type='video/mp4'></video>\n";
     echo "<br><span class='fieldname'>Select in the sliders below the begin and the end of the section:</span><br>";
-    echo "<input type='range' id='rangeBegin' min=0 max=100 style='width:800px'><br>";
-    echo "<input type='range' id='rangeEnd' min=0 max=100 style='width:800px'>";
+    echo "<div style='width: 100%; height: 24px;'><input type='range' id='rangeBegin' min=0 max=100 style='width:800px; vertical-align: middle;' onchange='javascript:boundariesVideo();'><span class='fieldname'> (begin)</span></div>\n";
+    echo "<div style='width: 100%; height: 24px;'><input type='range' id='rangeEnd' min=0 max=100 style='width:800px; vertical-align: middle;' onchange='javascript:boundariesVideo();'><span class='fieldname'> (end)</span></div>\n";
+    echo "<script>videojs('my-video');</script>";
 }
 
 //creating the code selector
@@ -108,8 +120,6 @@ mysqli_close($conn);
 <textarea id="memo" cols=70 rows=3 placeholder="Comment about the coding here..."></textarea>
 </div>
 
-
-
 <!--hidden fields with basic info for the coding-->
 <input type=hidden id="owner" value="leo">
 <input type=hidden id="status" value=1>
@@ -122,6 +132,7 @@ mysqli_close($conn);
 <input type=hidden id="y2" name="y2">
 
 <script type="text/javascript">
+//image
 if (document.getElementById("type").innerHTML == "i") {
     $(document).ready(function () {
         $('img#image').imgAreaSelect({
@@ -137,13 +148,15 @@ if (document.getElementById("type").innerHTML == "i") {
         });
     });
 }
-
+//video
 if (document.getElementById("type").innerHTML == "v") {
-    
+    document.getElementById("x2").value = 0;
+    document.getElementById("y2").value = 0;
 }
 
 </script>
 
+<div style='clear:both;'>
 <br>
 <span id="result"></span>
 <br>

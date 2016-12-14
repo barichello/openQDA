@@ -34,9 +34,9 @@ function checkImage() {
 <div id="centro">
     <h2>Include a new image</h2>
 
-    <form method="post" action="doNewImage.php">
+    <form method="post" action="doNewImage.php" enctype="multipart/form-data">
     <table border=0>
-        <tr><td><span class='fieldname'>file:</span></td><td><input type="text" id="name" name="name" size="40"><input type="button" onclick="checkImage();" value="check"></td></tr>
+        <tr><td><span class='fieldname'>file:</span></td><td><input type="file" name="fileToUpload" id="fileToUpload"></td></tr>
         <tr><td><span class='fieldname'>owner:</span></td><td><input type="text" id="owner" name="owner" size="20" value="Leo"></td></tr>
         <tr><td><span class='fieldname'>type:</span></td><td><input type="text" id="type" name="type" size="1" value="i"></td></tr>
         <tr><td><span class='fieldname'>status:</span></td><td><input type="text" id="status" name="status" size="5" value="1"></td></tr>

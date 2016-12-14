@@ -4,6 +4,11 @@
 
 <link rel="stylesheet" type="text/css" href="css/main.css">
 
+<link href="http://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
+<link rel="stylesheet" href="css/videoplayerskin/polyzor-skin.min.css">
+
+<script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
+
 <style>
 img {
     float: left;
@@ -15,9 +20,9 @@ img {
 </style>
 
 <script>
-function drawCodings(list) {
+function drawCodings(list,dur) {
         //scale of the bar to adjust to the size of the player
-        f = 800/document.getElementById("my-video").duration;
+        f = 800/dur;
         var y0=5;
         if (list.length>0) {
             current = list[0][2];
@@ -87,7 +92,7 @@ if ($row["type"]=="i") {
     echo "<script> var x = document.createElement('img');\n x.src = 'sources/" . $row["name"]  . "';\n";
     echo "document.getElementById('canvas0').getContext('2d').drawImage(x,0,0,800," . $height*(800/$width) . ");\n";
     //getting the codings
-    $sql2 = "SELECT * FROM ( SELECT source_id, codes_id, boundaries, name, color, sourceCoding.memo FROM sourceCoding INNER JOIN codes ON sourceCoding.codes_id = codes.id)fusao WHERE source_id=" . $_GET["idImage"];
+    $sql2 = "SELECT * FROM ( SELECT source_id, codes_id, boundaries, name, color, date, sourceCoding.memo FROM sourceCoding INNER JOIN codes ON sourceCoding.codes_id = codes.id)fusao WHERE source_id=" . $_GET["idImage"];
     $result2 = mysqli_query($conn, $sql2);
     //drawing the coding
     echo "var canvas = document.getElementById('canvas0'); var ctx = canvas.getContext('2d');ctx.font = '12px Verdana';\n";
@@ -103,7 +108,7 @@ if ($row["type"]=="i") {
         echo "ctx.fillText('" . $row2["name"] . "'," . $row2["x1"]*(800/$width) .  "," . $row2["y1"]*(800/$width) . ");\n"; //trocar ID por nome do code
         //to list the codes before the image
         echo "document.getElementById('abouttheCodes').innerHTML += '<span style=color:" . $row2["color"] . ";>" . $row2["name"] . "</span>: " . $row2["memo"] . "';";
-        echo "document.getElementById('abouttheCodes').innerHTML += ' <a class=deletelink href=doDeleteCoding.php?imageId=" . $row2["source_id"] . "&codeId="  . $row2["codes_id"] .  ">[delete code]</a></br>';";
+        echo "document.getElementById('abouttheCodes').innerHTML += ' <a class=deletelink href=doDeleteCoding.php?date=" . str_replace(" ","x",$row2["date"]) . ">[delete code]</a></br>';";
         }
         
     echo "</script>";       
@@ -111,24 +116,27 @@ if ($row["type"]=="i") {
 
 //video
 if ($row["type"]=="v") {
-    //drawing the image on the canvas
-    echo "<video id='my-video' class='video-js vjs-polyzor-skin' controls preload='metadata' width='800' height='600'><source src='sources/" . $row["name"] . "' type='video/mp4'></video>\n";
-    echo "<svg width='800' height='200' id='codes'></svg>\n";
-    
+    //creating the player
+    echo "<video id='my-video' class='video-js vjs-polyzor-skin' controls style='width: 800px; height: 600px;' preload='metadata'><source src='sources/" . $row["name"] . "' type='video/mp4'></video>\n";
+    //creating the svg for the codes
+    echo "<svg width=800 height=100 id='codes'></svg>\n";
+    echo "<br><br><div id='abouttheCodes'></div><br>\n";
     //getting the codings
-    $sql2 = "SELECT * FROM ( SELECT source_id, codes_id, boundaries, name, color, sourceCoding.memo FROM sourceCoding INNER JOIN codes ON sourceCoding.codes_id = codes.id ORDER BY codes_id)fusao WHERE source_id=" . $_GET["idImage"];
+    $sql2 = "SELECT * FROM ( SELECT source_id, codes_id, boundaries, name, color, date, sourceCoding.memo FROM sourceCoding INNER JOIN codes ON sourceCoding.codes_id = codes.id ORDER BY codes_id)fusao WHERE source_id=" . $_GET["idImage"];
     $result2 = mysqli_query($conn, $sql2);
+     
     //preparing the array with the codings
-    
     echo "<script>\n";
-    echo "var myVideoPlayer = document.getElementById('my-video');\n";
-    echo "myVideoPlayer.addEventListener('loadedmetadata', function() {\n";
-    echo "var listCodings = new Array();\n";
-    while($row2 = mysqli_fetch_assoc($result2)) {
-        list($begin,$end) = explode(":", $row2["boundaries"]);
-        echo "listCodings.push([" . $begin . "," . $end . ",'" . $row2['color'] . "']);\n";
-        }
-    echo "drawCodings(listCodings);});</script>\n";    
+    echo "videojs('my-video', {}, function(){ this.on('loadedmetadata', function(){";
+        echo "var listCodings = new Array();\n";
+        while($row2 = mysqli_fetch_assoc($result2)) {
+            list($begin,$end) = explode(":", $row2["boundaries"]);
+            echo "listCodings.push([" . $begin . "," . $end . ",'" . $row2['color'] . "']);\n";
+            echo "document.getElementById('abouttheCodes').innerHTML += '<span style=color:" . $row2["color"] . ";>" . $row2["name"] . "</span> (" . $row2["boundaries"] . ") : " . $row2["memo"] . "';";
+            echo "document.getElementById('abouttheCodes').innerHTML += ' <a class=deletelink href=doDeleteCoding.php?date=" . str_replace(" ","x",$row2["date"]) . ">[delete code]</a></br>';";
+            }
+        echo "drawCodings(listCodings, this.duration());});});\n";
+    echo "</script>\n";
 }
 
 //create the links for navigation among sources

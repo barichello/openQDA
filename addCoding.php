@@ -9,8 +9,12 @@ if (!$conn) {
     echo "Coding not registered.";
     die("Connection failed: " . mysql_error());
 }
-
-$boundaries = $_POST["x1"] . ":" . $_POST["y1"] . ":" . $_POST["x2"] . ":" . $_POST["y2"];
+if ($_POST["type"]=="i") {
+    $boundaries = $_POST["x1"] . ":" . $_POST["y1"] . ":" . $_POST["x2"] . ":" . $_POST["y2"];
+    }
+if ($_POST["type"]=="v") {
+    $boundaries = $_POST["x1"] . ":" . $_POST["y1"];
+    }
 
 $sql = "INSERT INTO sourceCoding (source_id, codes_id, boundaries, owner, status, memo) VALUES ('" . $_POST["source_id"] . "','" . $_POST["codes_id"] . "','" . $boundaries . "','" . $_POST["owner"] . "','" . $_POST["status"] . "','" . $_POST["memo"] ."')";
 

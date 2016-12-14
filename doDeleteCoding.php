@@ -29,7 +29,9 @@ if (!$conn) {
 }
 
 //deleting coding
-$sql = "DELETE FROM sourceCoding WHERE source_id=" . $_GET["imageId"] . " AND codes_id=" . $_GET["codeId"];
+$d = str_replace("x"," ",$_GET["date"]);
+$sql = "DELETE FROM sourceCoding WHERE date='" . $d . "'";
+
 if (mysqli_query($conn, $sql)) {
     echo "<br>Coding removed<br>";
     $last_id = mysqli_insert_id($conn);
