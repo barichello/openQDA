@@ -18,9 +18,10 @@ Sections: they are parts (or fragments) of a source. In the case of an image, it
 
 Codes: they are like tags that can be applied to sections (not sources). This is sort of the universal tool for qualitative analysis. Tipically, the researcher identifies a part of a source (for instance, a sentence from an interview) and associates that part with a code that refers to a phenomena of interest.
 
-# Important note
+# Important notes
 
-If you decide to use the software, you have to upload manually (via FTP) the images to the folder /images and then register the images using the interface.
+1) The software is only tested on Firefox;
+2) Modify and delete capabilities are not fully implemented across the software;
 
 # Installation
 
