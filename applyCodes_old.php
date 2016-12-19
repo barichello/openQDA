@@ -4,7 +4,6 @@
 
 <link rel="stylesheet" type="text/css" href="css/main.css">
 
-<!-- necessary for the sectiuon selection on images -->
 <link rel="stylesheet" type="text/css" href="css/imgareaselect-default.css" />
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/jquery.imgareaselect.pack.js"></script>
@@ -14,18 +13,8 @@
 
 <script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
 
-<!-- necessary for the slider -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <script>
 function ajax_post(){
-    //video
-    if (document.getElementById("type").innerHTML == "v") {
-        var p = videojs('my-video');
-        document.getElementById('x1').value = Math.round($("#slider-range").slider("values",0)*p.duration()/100);
-        document.getElementById('y1').value = Math.round($("#slider-range").slider("values",1)*p.duration()/100);
-    }
     // Create our XMLHttpRequest object
     var hr = new XMLHttpRequest();
     hr.open("POST", "addCoding.php", true);
@@ -44,14 +33,12 @@ function ajax_post(){
     document.getElementById("result").innerHTML = "processing...";
 }
 
-//creating the slider
-$( function() {
-    $( "#slider-range" ).slider({ range: true, min: 0, max: 100, values: [ 25, 75 ],
-                                  slide: function( event, ui ) { $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] ); } 
-                                }
-                               );
-} 
-);
+//function to transfer the boundaris of the range to 
+function boundariesVideo() {
+    var p = videojs('my-video');
+    document.getElementById('x1').value = Math.round(document.getElementById('rangeBegin').value*p.duration()/100);
+    document.getElementById('y1').value = Math.round(document.getElementById('rangeEnd').value*p.duration()/100);
+}
 </script>
 
 
@@ -109,9 +96,8 @@ if ($row["type"]=="i") {
 if ($row["type"]=="v") {
     echo "<video id='my-video' class='video-js vjs-polyzor-skin' controls style='width: 800px; height: 600px;' preload='metadata'><source src='sources/" . $row["name"] . "' type='video/mp4'></video>\n";
     echo "<br><span class='fieldname'>Select in the sliders below the begin and the end of the section:</span><br>";
-    
-    echo "<div id='slider-range' style='width:800px;'></div>\n<br/>\n";
-    
+    echo "<div style='width: 100%; height: 24px;'><input type='range' id='rangeBegin' min=0 max=100 style='width:800px; vertical-align: middle;' onchange='javascript:boundariesVideo();'><span class='fieldname'> (begin)</span></div>\n";
+    echo "<div style='width: 100%; height: 24px;'><input type='range' id='rangeEnd' min=0 max=100 style='width:800px; vertical-align: middle;' onchange='javascript:boundariesVideo();'><span class='fieldname'> (end)</span></div>\n";
     echo "<script>videojs('my-video');</script>";
 }
 

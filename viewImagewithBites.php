@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>openQDA</title>
+<title>Pipoca</title>
 
 <link rel="stylesheet" type="text/css" href="css/main.css">
 
@@ -108,7 +108,7 @@ if ($row["type"]=="i") {
         echo "ctx.fillText('" . $row2["name"] . "'," . $row2["x1"]*(800/$width) .  "," . $row2["y1"]*(800/$width) . ");\n"; //trocar ID por nome do code
         //to list the codes before the image
         echo "document.getElementById('abouttheCodes').innerHTML += '<span style=color:" . $row2["color"] . ";>" . $row2["name"] . "</span>: " . $row2["memo"] . "';";
-        echo "document.getElementById('abouttheCodes').innerHTML += ' <a class=deletelink href=doDeleteCoding.php?date=" . str_replace(" ","x",$row2["date"]) . ">[delete code]</a></br>';";
+        echo "document.getElementById('abouttheCodes').innerHTML += ' <a class=deletelink href=doDeleteCoding.php?date=" . str_replace(" ","x",$row2["date"]) . ">[delete coding]</a></br>';";
         }
         
     echo "</script>";       
@@ -141,7 +141,7 @@ if ($row["type"]=="v") {
 
 //create the links for navigation among sources
 $d = str_replace(" ","x",$row["date"]); //tweaking the string to send by GET
-echo "<div></br><span class='fieldname'>Navigate: </span><a href=http://www.mais.mat.br/webQDA/viewImagewithBites.php?idImage=" . ($row["id"]-1) . ">Previous</a> | <a href=http://www.mais.mat.br/webQDA/viewImagewithBites.php?idImage=" . ($row["id"]+1) . ">Next</a> | <a href=http://www.mais.mat.br/webQDA/uploadedTogether.php?date=" . $d . ">Other sources uploaded with this one</a></div>";
+echo "<div></br><span class='fieldname'>Navigate: </span><a href=viewImagewithBites.php?idImage=" . ($row["id"]-1) . ">Previous</a> | <a href=viewImagewithBites.php?idImage=" . ($row["id"]+1) . ">Next</a> | <a href=uploadedTogether.php?date=" . $d . ">Other sources uploaded with this one</a></div>";
     
 mysqli_close($conn);
 ?> 

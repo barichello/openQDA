@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>openQDA</title>
+<title>Pipoca</title>
 
 <link rel="stylesheet" type="text/css" href="css/main.css">
 
@@ -17,7 +17,7 @@
 </div>
 
 <div id="centro">
-    <h2>Editing the atributes of a image</h2>
+    <h2>Edit attributes</h2>
 
 <?php
 
@@ -31,26 +31,24 @@ if (!$conn) {
 }
 
 //montando o seletor de codigos disponiveis
-$sql = "SELECT * FROM (SELECT attributes.id, attributes.name, attributes.memo, sourceAttributes.value, sourceAttributes.sources_id FROM attributes LEFT JOIN sourceAttributes ON attributes.id=sourceAttributes.attributes_id)fusao WHERE sources_id =" . $_GET["idImage"];
+$sql = "SELECT * FROM (SELECT attributes.id, attributes.name, attributes.memo, sourceAttributes.value, sourceAttributes.source_id FROM attributes LEFT JOIN sourceAttributes ON attributes.id=sourceAttributes.attributes_id)fusao WHERE source_id=" . $_GET["idImage"];
+
 $result = mysqli_query($conn, $sql);
-echo "<form method=GET action='updateAttributes.php'>\n<br>\n";
+echo "<form method=GET action='updateAttributes.php'>\n";
 echo "<table border=0 valign='top'>\n";
-echo "<input type=hidden name='idImage' value='" . $_GET["idImage"] . "'>\n<br>";
+echo "<input type=hidden name='idImage' value='" . $_GET["idImage"] . "'>\n";
 while($row = mysqli_fetch_assoc($result)) {
         echo "<tr><td><input type=hidden name='idAttributes[]' value='" . $row["id"] . "'>\n";
         echo "<span class='fieldname'>" . $row["name"] . "</td><td><input type=text name='values[]' value='" . $row["value"] . "'></td>\n";
         echo "<td><span class='discrete'>" . $row["memo"] . "</span></td></tr>\n";
     }
-echo "<tr><td colspan=3><input type='Submit' value='Edit'></td></tr>\n<table>\n</form>\n";
-
-//getting the name of the image and inserting it
-$sql = "SELECT name FROM sources WHERE id='" . $_GET["idImage"] . "'";
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
-echo "<img style='max-width: 800' src='sources/" . $row["name"] . "' style='margin: 20px auto 20px auto'>\n";
+echo "<tr><td colspan=3 align=center><br/><input type='Submit' value='Edit'></td></tr>\n<table>\n</form>\n";
 
 mysqli_close($conn);
 ?> 
+
+</div>
+</div>
 
 </body>
 </html>

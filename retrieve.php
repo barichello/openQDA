@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>openQDA</title>
+<title>Pipoca</title>
 
 <link rel="stylesheet" type="text/css" href="css/main.css">
 
@@ -10,6 +10,10 @@ img {
     margin: 0 20px 10px 0;
     width: 150px;
     }
+    
+td {
+    padding: 5px 5px 15px 5px;
+}
 </style>
 
 <script>
@@ -89,42 +93,46 @@ if (!$conn) {
 //montando a lista de atributos
 $sql = "SELECT * FROM attributes";
 $result = mysqli_query($conn, $sql);
-echo "<h2>Attributes</h2>";
+echo "<h2>Retrieve sources</h2>";
 echo "<input type=hidden name='idImage' value='" . $_GET["idImage"] . "'>\n";
 $i = 0;
+echo "<table border=0>";
 while($row = mysqli_fetch_assoc($result)) {
-        echo "<input type=hidden name='idAttributes[]' value='" . $row["id"] . "'>\n<br>";
-        echo $row["name"] . " = <input type=text name='values[]' value=''>\n<br>";
-        echo "<span class='discrete'>" . $row["memo"] . "</span>\n<br>";
+        echo "<tr><td>";
+        echo "<input type=hidden name='idAttributes[]' value='" . $row["id"] . "'>\n";
+        echo "<span class='fieldname'>" . $row["name"] . "</span></td><td><input type=text name='values[]' value=''></td>\n";
+        echo "<td><span class='discrete'>" . $row["memo"] . "</span><br>\n";
         //getting the values of this attribute
-        echo "<span class='discrete'>Values used: ";
+        echo "<span class='discrete'>Registered values: ";
         $result2 = mysqli_query($conn, "SELECT DISTINCT value FROM sourceAttributes WHERE attributes_id='" . $row["id"] . "'");
         while($row2 = mysqli_fetch_assoc($result2)) {
             echo $row2["value"] . ", ";
         }
-        echo "</span>\n<br>";
+        echo "</span></td></tr>\n";
         $i =$i+1;
     }
-//guaradando o total de atributos
-echo "<input type=hidden id='totalA' value='" . $i . "'>\n<br>\n";
+
+
+//total of attributes
+echo "<tr><td><input type=hidden id='totalA' value='" . $i . "'>\n";
 
 //montando o seletor de codigos disponiveis
 $sql = "SELECT name, id FROM codes";
 $result = mysqli_query($conn, $sql);
-echo "<h2>Codes</h2>";
-echo "<select id='codes_id'>";
+echo "<span class='fieldname'>Codings</span></td><td colspan=2><select id='codes_id'>";
 echo "<option value='default' selected='selected'>Select a code</option>";
 if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
         echo "<option value='" . $row["id"] . "'>" . $row["name"] . "</option>";
     }
 }
-echo "</select>\n";
+echo "</select></td></tr>\n";
 mysqli_close($conn);
 
 ?>
 
-<br><br><input type=Submit value="Retrieve images" onclick="ajax_post();">
+<tr><td colspan=3><br/><center><input type=Submit value="Retrieve images" onclick="ajax_post();"></center></td></tr>
+</table>
 <br>
 <div id="result"></div>
 

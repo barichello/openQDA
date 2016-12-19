@@ -33,7 +33,7 @@ if (mysqli_num_rows($result) > 0) {
     }
 }
 else {
-    echo ":( I could not find any image matching your criterias...";
+    echo ":( I could not find any image matching your criteria...";
 }
 mysqli_close($conn);
 ?>

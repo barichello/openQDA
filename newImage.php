@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>openQDA</title>
+<title>Pipoca</title>
 
 <link rel="stylesheet" type="text/css" href="css/main.css">
 
@@ -35,14 +35,16 @@ function checkImage() {
     <h2>Include a new image</h2>
 
     <form method="post" action="doNewImage.php" enctype="multipart/form-data">
+    
+    <input type="hidden" id="status" name="status" size="1" value="1">
+    
     <table border=0>
         <tr><td><span class='fieldname'>file:</span></td><td><input type="file" name="fileToUpload" id="fileToUpload"></td></tr>
         <tr><td><span class='fieldname'>owner:</span></td><td><input type="text" id="owner" name="owner" size="20" value="Leo"></td></tr>
-        <tr><td><span class='fieldname'>type:</span></td><td><input type="text" id="type" name="type" size="1" value="i"></td></tr>
-        <tr><td><span class='fieldname'>status:</span></td><td><input type="text" id="status" name="status" size="5" value="1"></td></tr>
+        <tr><td><span class='fieldname'>type:</span></td><td><select id="type" name="type"><option value="i">image</option><option value="v">video</option></select></td></tr>
         <tr><td><span class='fieldname'>description:</span></td><td><textarea rows=4 cols=60 id="memo" name="memo" placeholder="Description of the image (remember that you can use attributes)"></textarea></td></tr>
 
-        <tr><td colspan=2><h2>Atributes</h2></td></tr>
+        <tr><td colspan=2><h2>Attributes</h2></td></tr>
         
         <?php
         

@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>openQDA</title>
+<title>Pipoca</title>
 
 <link rel="stylesheet" type="text/css" href="css/main.css">
 
