@@ -52,7 +52,7 @@ a.menu:hover {
 #centro {
     position: absolute;
     left: 220px;
-    top: 200px;
+    top: 210px;
     width: 900px;
     background-color: #f5f5f5;
     border-radius: 5px;
@@ -64,7 +64,7 @@ a.menu:hover {
 #menu {
     position: absolute;
     left: 0px;
-    top: 220px;
+    top: 210px;
     padding: 10px;
     width: 200px;
 }
@@ -106,18 +106,25 @@ h4 {
     font-size: 1em;
 }
 
-input {
+#rangeEnd {
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
+#rangeBegin {
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
+/*
+text {
     border: 2px solid #777777;
     border-radius: 4px;
     background-color: white;
     padding: 4px;
     margin: 4px;
-}
-
-range {
-    border: 0px;
-    padding: 0px;
-    margin: 0px;
 }
 
 textarea {
@@ -134,3 +141,4 @@ select {
     padding: 4px;
     margin: 4px;
 }
+*/
