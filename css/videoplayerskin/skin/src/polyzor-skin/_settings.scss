@@ -1,0 +1,66 @@
+//Global Skin Settings
+
+//SKIN COLORS
+//------------------------------------------------------
+$primary-foreground-color: #36c183; // #fff default
+
+$primary-background-color: #2B333F;  // #2B333F default
+
+//color for video progress indicator
+$progress-indicator-color: #fcfaff; //skin default #fff
+
+//color for mute/vol-0 icon
+$mute-icon-color: red;
+
+//color for time text
+$time-color: #fff; //skin default  #fff
+
+//color for big play button
+$center-big-play-button-color: $primary-foreground-color;
+$center-big-play-button-hover-color: #fff;
+
+// Make a slightly lighter version of the main background
+// for the slider background.
+$slider-bg-color: lighten($primary-background-color, 33%);
+
+
+//SKIN SIZE SETTINGS
+//----------------------------
+//Video control container
+$video-container-height: 4em;
+
+//Video progress bar
+$progress-bar-height: .5em;
+$progress-bar-indicator: $progress-bar-height * 2;
+//When user is inactive progress bar move to bottom of the player
+$show-progress-bar: true; //skin default true
+
+//Play button size
+//align center play button
+$center-play-button: true;
+$play-button-size: $video-container-height / 1.4;
+
+//All controls size
+$control-buttons-size: $video-container-height - 1;
+
+//Big play button
+$center-big-play-button: true; // true default
+/* 1.5em = 45px default */
+$big-play-size: 6em;
+$big-play-width: 1em;
+$big-play-height: 1em;
+
+//SPECIAL CONDITION
+@if $video-container-height < 3 {
+    $play-button-size: $video-container-height;
+    $control-buttons-size: $video-container-height ;
+}
+
+/*THEME ICONS
+------------------------------------------------------------------------------------------------*/
+.vjs-polyzor-skin .vjs-icon-play, .video-js .vjs-big-play-button, .video-js .vjs-play-control {
+    font-family: VideoJS;
+    font-weight: normal;
+    font-style: normal; }
+.vjs-polyzor-skin .vjs-icon-play:before, .video-js .vjs-big-play-button:before, .video-js .vjs-play-control:before {
+    content: ""; }

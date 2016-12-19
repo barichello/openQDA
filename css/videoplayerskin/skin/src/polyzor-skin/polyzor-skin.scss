@@ -1,0 +1,315 @@
+//by Polyzor.io
+//Video.js polyzor skin
+//Polyzor Skin v. 0.2.0
+
+@import "settings";
+
+.vjs-polyzor-skin {
+    font-size: 10px;
+    /* The main font color changes the ICON COLORS as well as the text */
+    color: $primary-foreground-color;
+
+    .vjs-control-bar,
+    .vjs-big-play-button,
+    .vjs-menu-button .vjs-menu-content {
+        /* IE8 - has no alpha support */
+        background-color: $primary-background-color;
+        /* Opacity: 1.0 = 100%, 0.0 = 0% */
+        background-color: rgba($primary-background-color, 0.7);
+    }
+}
+
+
+//Big play button
+//--------------------------------------------
+.vjs-polyzor-skin .vjs-big-play-button {
+    font-size: $big-play-size;
+    line-height: 1;
+    height: $big-play-height;
+    width: $big-play-width;
+    color: $center-big-play-button-color;
+    background: none !important;
+    border: 0;
+    transition: all .3s ease !important;
+
+    &:hover {
+        color: $center-big-play-button-hover-color;
+        transform:scale(1.5);
+    }
+
+    @if $center-big-play-button {
+        /* Align center */
+        left: 50%;
+        top: 50%;
+        margin-left: -($big-play-width / 2);
+        margin-top: -($big-play-height / 2);
+    } @else {
+        /* Align top left. 0.5em = 15px default */
+        left: 0.5em;
+        top: 0.5em;
+    }
+}
+
+
+//VIDEO CONTROL
+//--------------------------------------------
+//Video control bar
+.vjs-polyzor-skin .vjs-control-bar {
+    padding: 0 5px;
+    height: $video-container-height !important;
+    align-items: center;
+
+}
+
+//Progress bar
+.vjs-polyzor-skin .vjs-progress-control {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important; //defined by $progress-bar-height
+    transform:translate(0, -100%);
+}
+//Progress indicator
+.vjs-polyzor-skin .vjs-progress-holder {
+    height: $progress-bar-height !important;
+    margin: 0;
+
+    .vjs-load-progress, .vjs-play-progress {
+        transition: width 400ms ease;
+        height: 100% !important;
+    }
+
+    .vjs-play-progress:before {
+        font-size: $progress-bar-indicator;
+        color: $progress-indicator-color;
+        top: -55%;
+    }
+}
+//progress indicator state when user is inactive "change this in settings - $show-progress-bar with true or false "
+.vjs-polyzor-skin.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar {
+    @if $show-progress-bar {
+        visibility: visible;
+        opacity: 1;
+        background: none;
+        transition: all 1s;
+
+        .vjs-control, .vjs-time-control {
+            visibility: hidden;
+            opacity: 0;
+            transition: all 1s;
+        }
+        .vjs-progress-control {
+            visibility: visible;
+            opacity: 1;
+            top: 100%;
+            transition: all .8s !important;
+            transform: translate(0,-100%);
+
+            .vjs-play-progress.vjs-slider-bar {
+                &:before {
+                    content: '';
+                }
+            }
+        }
+    } @else {
+
+    }
+}
+
+//BUTTONS
+//-------------------------------------------
+//general button settings
+.vjs-polyzor-skin .vjs-control {
+    height: auto;
+    width: auto;
+    padding: 0 5px;
+
+    &:before {
+        font-size: $control-buttons-size;
+        line-height: 1 !important;
+    }
+}
+.vjs-polyzor-skin .vjs-control:before {
+    line-height:1;
+    position: relative;
+}
+
+.video-js .vjs-control:focus:before,
+.video-js .vjs-control:hover:before,
+.video-js .vjs-control:focus {
+    text-shadow: 0 0 1em $primary-foreground-color ;
+}
+
+
+//Play button
+.vjs-polyzor-skin .vjs-play-control {
+    @if $center-play-button {
+        //Align center of bar
+        position: absolute;
+        width: auto;
+        height: 100%;
+        top: 50%;
+        left: 50%;
+        transition: 300ms;
+        transform: translate(-50%, -50%);
+    } @else {
+        display: block;
+        position: relative;
+        top: 0;
+        transform: translate(0, 0);
+        margin-right: 5px;
+    }
+
+    &:before {
+        position: relative;
+        line-height: 1 !important;
+        font-size: 25px; //for IE
+        font-size: $play-button-size !important;
+    }
+}
+
+//Volume button & menu
+.vjs-polyzor-skin .vjs-volume-menu-button {
+    position: relative;
+    height: $control-buttons-size - .7;
+    width: $control-buttons-size - .7;
+    overflow:hidden;
+
+    &:before {
+        text-align: left;
+        font-size: $control-buttons-size - .7 !important;
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        text-shadow: none !important ;
+    }
+
+    .vjs-menu {
+        position: relative;
+        width: 100%;
+        left: $control-buttons-size / 1.5;
+    }
+    .vjs-menu-content {
+        position: absolute;
+        height: $control-buttons-size - .7;
+        padding: 0 5px !important;
+
+
+        .vjs-volume-bar {
+            margin: 0 !important;
+            top:50%;
+            transform: translate(0, -50%);
+        }
+    }
+}
+.vjs-polyzor-skin .vjs-volume-level { //volume level indicator
+    color: $progress-indicator-color;
+}
+.vjs-polyzor-skin .vjs-vol-0 { //volume mute icon
+    color:$mute-icon-color;
+}
+
+//Time
+.vjs-polyzor-skin .vjs-remaining-time {
+    margin-right:auto;
+}
+.vjs-polyzor-skin .vjs-time-control {
+    color: $time-color;
+}
+
+//Live control
+.vjs-polyzor-skin .vjs-live-control {
+    position: absolute;
+    width: auto;
+    line-height: 1;
+    height: auto;
+    top:-30px;
+    right: 0;
+
+    &:before {
+        content: '';
+        display: block;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        background: red;
+        border-radius: 100%;
+        transform: translate(-100%, -50%);
+    }
+}
+
+//Playback Rate button
+.vjs-polyzor-skin .vjs-playback-rate {
+    /*TODO: fix playback height*/
+}
+
+//Divider between time
+.vjs-current-time, .vjs-time-divider {
+    display: block !important;
+}
+
+//Cursor time indicator
+.vjs-polyzor-skin .vjs-progress-control {
+
+    &:hover{
+        .vjs-mouse-display:after {
+            background: rgba( $primary-foreground-color, .7);
+        }
+    }
+
+}
+
+/* The slider bar color is used for the progress bar and the volume bar
+   (the first two can be removed after a fix that's coming) */
+.video-js .vjs-volume-level,
+.video-js .vjs-play-progress,
+.video-js .vjs-slider-bar {
+    background: $primary-foreground-color;
+}
+
+/* The main progress bar also has a bar that shows how much has been loaded. */
+.video-js .vjs-load-progress {
+    /* For IE8 we'll lighten the color */
+    background: lighten($slider-bg-color, 25%);
+    /* Otherwise we'll rely on stacked opacities */
+    background: rgba($slider-bg-color, 0.5);
+}
+
+/* The load progress bar also has internal divs that represent
+   smaller disconnected loaded time ranges */
+.video-js .vjs-load-progress div {
+    /* For IE8 we'll lighten the color */
+    background: lighten($slider-bg-color, 50%);
+    /* Otherwise we'll rely on stacked opacities */
+    background: rgba($slider-bg-color, 0.75);
+}
+
+//======================
+// MOBILE SCREENS
+//======================
+
+@media screen and (max-width: 400px) {
+    //BUTTONS
+        //Play
+    .vjs-polyzor-skin .vjs-play-control {
+        display: inline-block;
+        position: relative;
+        height: 100%;
+        top: 0 !important;
+        left:0 !important;
+        transform: translate(0, 0) !important;
+        margin-right: 5px;
+
+        &:before {
+            position: relative;
+            line-height: 1 !important;
+            font-size: $play-button-size !important;
+        }
+    }
+}
+
