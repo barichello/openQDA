@@ -25,12 +25,37 @@ function clickColor(c) {
 <div id="centro">
     <h2>Create a new code</h2>
 
-<form method="post" action="doNewCode.php">
+<form method="post" action="doEditCode.php">
 <table border=0>
-    <tr><td><span class='fieldname'>name:</span></td><td><input type="text" id="name" name="name" style="width: 400px;"></td></tr>
-    <tr><td><span class='fieldname'>description:</span></td><td><textarea rows=4 style="width: 400px;" id="memo" name="memo" placeholder="Description of the code"></textarea></td></tr>
-    <tr><td valign=top><span class='fieldname'>color:</span></td><td><input type="text" id="color" name="color" style="width: 100px;">
-    
+
+
+<?php
+include("connection.php");
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysql_error());
+}
+
+//getting the info
+$sql = "SELECT * FROM codes WHERE id=" . $_GET["id"];
+$result = mysqli_query($conn, $sql);
+if (mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_assoc($result)) {
+        echo "<input type='hidden' id='id' name='id' value=" . $_GET["id"] .">";
+        echo "<tr><td><span class='fieldname'>name:</span></td><td><input type='text' id='name' name='name' style='width: 400px;' value=" . $row["name"] ."></td></tr>";
+        echo "<tr><td><span class='fieldname'>description:</span></td><td><textarea rows=4 style='width: 400px;' id='memo' name='memo'>" . $row["memo"] . "</textarea></td></tr>";
+        echo "<tr><td valign=top><span class='fieldname'>color:</span></td><td><input type='text' id='color' name='color' style='width: 100px;' value=" . $row["color"] .">";
+    }
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+mysqli_close($conn);
+?>
+
     <br>
     <br>
     <img style='margin-right:2px;' src='css/img_colormap.gif' usemap='#colormap' alt='colormap' />
@@ -162,9 +187,8 @@ function clickColor(c) {
     <area style='cursor:pointer' shape='poly' coords='153,180,162,184,162,195,153,199,144,195,144,184' onclick='clickColor("#800000",-20,144)' alt='#800000' />
     <area style='cursor:pointer' shape='poly' coords='171,180,180,184,180,195,171,199,162,195,162,184' onclick='clickColor("#993333",-20,162)' alt='#993333' />
     </map>
-    
-    </td></tr>
-    <tr><td colspan=2><input type="submit" name="submit" value="Create"></td></tr>
+</td></tr>
+<tr><td colspan=2><input type="submit" name="submit" value="Edit"></td></tr>
 </table>
 </form>
 
