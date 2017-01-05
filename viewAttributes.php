@@ -4,6 +4,14 @@
 
 <link rel="stylesheet" type="text/css" href="css/main.css">
 
+<script>
+function deleteAtt(n) {
+    if (confirm("If you delete this attribute, you will also loose the values for all sources. Do you want to proceed?")) {
+        window.location = "doDeleteAttribute.php?id=" + n;
+        }
+    }
+</script>
+
 </head>
 
 <body>
@@ -45,6 +53,7 @@ if (mysqli_num_rows($result) > 0) {
         while($row2 = mysqli_fetch_assoc($result2)) {
             echo $row2["value"] . ", ";
         }
+        echo "\n<br>\n<span class='fieldname'>actions:</span><a href='javascript:deleteAtt(" . $row["id"] .")'>Delete</a> | <a href='editTheAttribute.php?id=" . $row["id"] . "'>Edit</a>\n";
         echo "\n</div>\n";
     }
 } else {
