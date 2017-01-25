@@ -2,9 +2,9 @@
 
 Web-based software to do qualitative analysis. So far, the software supports images and videos.
 
-This software was created to help me organize and analyse the data I collected for my Ph.D. research project. In certain sense, this software is the first step towards an open alternative for NVivo.
+This software was created to help me organize and analyse the data I collected for my Ph.D. research project (http://www.barichello.coffee/about-my-research). In certain sense, this software is the first step towards an open alternative for NVivo.
 
-At this moment, the sofwtare lacks lots of basic features, such as the possibility of removing or editing images, attributes, codes and sections. If you are looking for something ready to use, DO NOT use this software. I just shared as a way to find more people interested in a long term partnership to develop it.
+At this moment, the software lacks some basic features. If you are looking for something ready to use, DO NOT use this software. I just shared as a way to find more people interested in a long term partnership to develop it.
 
 # How it works
 
@@ -14,15 +14,13 @@ Sources: they are the files which actualy contain the data to be organized and a
 
 Attributes: you can apply attributes to sources as a way to organize, describe or even analyse them. For instance, you may create the attribute DATE and then use it to record the date in which a source was created.
 
-Sections: they are parts (or fragments) of a source. In the case of an image, it is a rectangular section of it. For a text, a section would be a string. For a video or audio, it would be an interval.
+Sections: they are parts (or fragments) of a source. In the case of an image, it is a rectangular section of it. For a text, a section would be a string. For a video or audio, it would be a time interval.
 
-Codes: they are like tags that can be applied to sections (not sources). This is sort of the universal tool for qualitative analysis. Tipically, the researcher identifies a part of a source (for instance, a sentence from an interview) and associates that part with a code that refers to a phenomena of interest.
+Codes: they are like tags that can be applied to sections (not sources). This is sort of the universal tool for qualitative analysis (NVivo calls them nodes). Tipically, the researcher identifies a part of a source (for instance, a sentence from an interview) and associates that part with a code that refers to a phenomena of interest.
 
 # Important notes
 
 1) The software is only tested on Firefox;
-
-2) Modify and delete capabilities are not fully implemented across the software;
 
 # Installation
 
