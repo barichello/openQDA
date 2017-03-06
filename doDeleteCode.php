@@ -50,7 +50,7 @@ if (mysqli_query($conn, $sql)) {
 mysqli_close($conn);
 ?>
 
-Actions: <a href='viewCodes.php'>Return to the list of codes</a> | <a href='newCode.pph'>Create a new code</a>
+Actions: <a href='viewCodes.php'>Return to the list of codes</a> | <a href='newCode.php'>Create a new code</a>
 
 </div>
 
