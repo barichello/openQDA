@@ -33,7 +33,7 @@ $d = str_replace("x"," ",$_GET["date"]);
 $sql = "DELETE FROM sourceCoding WHERE date='" . $d . "'";
 
 if (mysqli_query($conn, $sql)) {
-    echo "<br>Coding removed<br>";
+    echo "<h4>Coding removed<h4>";
     $last_id = mysqli_insert_id($conn);
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
