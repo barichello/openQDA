@@ -9,6 +9,14 @@
 
 <script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
 
+<script>
+function deleteSource(n) {
+    if (confirm("If you delete this source, you will loose all content related to it. Do you want to proceed?")) {
+        window.location = "doDeleteSource.php?id=" + n;
+        }
+    }
+</script>
+
 <style>
 img {
     float: left;
@@ -78,7 +86,7 @@ echo "<span class='fieldname'>Atributes:</span>";
 while($row3 = mysqli_fetch_assoc($result3)) {
     echo $row3["name"] . "=" . $row3["value"] . ", ";
 }
-echo "<br>\n<span class='fieldname'>actions:</span><a href='editAttributes.php?idImage=" . $_GET["idImage"] . "'>Edit attributes</a> | <a href='applyCodes.php?idImage=" . $_GET["idImage"] . "'>Apply code</a>\n<br/><br/>\n";
+echo "<br>\n<span class='fieldname'>actions:</span><a href='editAttributes.php?idImage=" . $_GET["idImage"] . "'>Edit attributes</a> | <a href='applyCodes.php?idImage=" . $_GET["idImage"] . "'>Apply code</a> | <a href='javascript:deleteSource(" . $row["id"] .")'>Delete source</a>\n<br/><br/>\n";
 
 //image
 if ($row["type"]=="i") {
