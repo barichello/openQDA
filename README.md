@@ -2,7 +2,7 @@
 
 Web-based software to do qualitative analysis. So far, the software supports images and videos.
 
-This software was created to help me organize and analyse the data I collected for my Ph.D. research project (http://www.barichello.coffee/about-my-research). In certain sense, this software is the first step towards an open alternative for NVivo.
+This software was created to help me organize and analyse the data I collected for my Ph.D. research project (http://www.barichello.coffee/about-my-research), but it was the first step towards an open alternative for NVivo.
 
 At this moment, the software lacks some basic features. If you are looking for something ready to use, DO NOT use this software. I just shared as a way to find more people interested in a long term partnership to develop it.
 
@@ -18,9 +18,19 @@ Sections: they are parts (or fragments) of a source. In the case of an image, it
 
 Codes: they are like tags that can be applied to sections (not sources). This is sort of the universal tool for qualitative analysis (NVivo calls them nodes). Tipically, the researcher identifies a part of a source (for instance, a sentence from an interview) and associates that part with a code that refers to a phenomena of interest.
 
+# To-do list
+
+1) Support audio sources;
+
+2) Decide what type of text will be supported and implement it;
+
+3) Decide how to enable add-ons;
+
 # Important notes
 
 1) The software is only tested on Firefox;
+
+2) The upload functionality is not fully developed, so pay attention to what you insert on it;
 
 # Installation
 
