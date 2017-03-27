@@ -116,7 +116,7 @@ if ($row["type"]=="i") {
         echo "ctx.fillText('" . $row2["name"] . "'," . $row2["x1"]*(800/$width) .  "," . $row2["y1"]*(800/$width) . ");\n"; //trocar ID por nome do code
         //to list the codes before the image
         echo "document.getElementById('abouttheCodes').innerHTML += '<span style=color:" . $row2["color"] . ";>" . $row2["name"] . "</span>: " . $row2["memo"] . "';";
-        echo "document.getElementById('abouttheCodes').innerHTML += ' <a class=deletelink href=doDeleteCoding.php?date=" . str_replace(" ","x",$row2["date"]) . ">[delete coding]</a></br>';";
+        echo "document.getElementById('abouttheCodes').innerHTML += ' <a class=deletelink href=doDeleteCoding.php?date=" . str_replace(" ","x",$row2["date"]) . "&id=" . $_GET["idImage"] . ">[delete coding]</a></br>';";
         }
         
     echo "</script>";       
@@ -141,7 +141,7 @@ if ($row["type"]=="v") {
             list($begin,$end) = explode(":", $row2["boundaries"]);
             echo "listCodings.push([" . $begin . "," . $end . ",'" . $row2['color'] . "']);\n";
             echo "document.getElementById('abouttheCodes').innerHTML += '<span style=color:" . $row2["color"] . ";>" . $row2["name"] . "</span> (" . $row2["boundaries"] . ") : " . $row2["memo"] . "';";
-            echo "document.getElementById('abouttheCodes').innerHTML += ' <a class=deletelink href=doDeleteCoding.php?date=" . str_replace(" ","x",$row2["date"]) . ">[delete code]</a></br>';";
+            echo "document.getElementById('abouttheCodes').innerHTML += ' <a class=deletelink href=doDeleteCoding.php?date=" . str_replace(" ","x",$row2["date"]) . "&id=" . $_GET["idImage"] . ">[delete coding]</a></br>';";
             }
         echo "drawCodings(listCodings, this.duration());});});\n";
     echo "</script>\n";
