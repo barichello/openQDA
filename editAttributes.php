@@ -34,7 +34,7 @@ if (!$conn) {
 $sql = "SELECT * FROM (SELECT attributes.id, attributes.name, attributes.memo, sourceAttributes.value, sourceAttributes.source_id FROM attributes LEFT JOIN sourceAttributes ON attributes.id=sourceAttributes.attributes_id)fusao WHERE source_id=" . $_GET["idImage"];
 
 $result = mysqli_query($conn, $sql);
-echo "<form method=GET action='updateAttributes.php'>\n";
+echo "<form method=GET action='doEditAttributes.php'>\n";
 echo "<table border=0 valign='top'>\n";
 echo "<input type=hidden name='idImage' value='" . $_GET["idImage"] . "'>\n";
 while($row = mysqli_fetch_assoc($result)) {
@@ -42,10 +42,14 @@ while($row = mysqli_fetch_assoc($result)) {
         echo "<span class='fieldname'>" . $row["name"] . "</td><td><input type=text name='values[]' value='" . $row["value"] . "'></td>\n";
         echo "<td><span class='discrete'>" . $row["memo"] . "</span></td></tr>\n";
     }
-echo "<tr><td colspan=3 align=center><br/><input type='Submit' value='Edit'></td></tr>\n<table>\n</form>\n";
+echo "<tr><td colspan=3 align=center><br/><input type='Submit' value='Edit'></td></tr>\n</table>\n</form>\n";
 
 mysqli_close($conn);
 ?> 
+
+<div>
+<span class='fieldname'>Navigate: </span> <a href=viewImagewithBites.php?idImage=<?php echo $_GET["idImage"] ?> >Back to source</a> | <a href=viewAttributes.php>View all attributes</a>
+</div>
 
 </div>
 </div>
