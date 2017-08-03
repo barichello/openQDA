@@ -88,6 +88,11 @@ if ($uploadOk == 0) {
 
 ?>
 
+<div>
+<span class='fieldname'>Navigate: </span> <a href=newImage.php>Add new source</a> | <a href=viewImages.php>View inserted source</a>
+</div>
+    
+    
 </div>
 
 </div>
