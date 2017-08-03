@@ -42,7 +42,7 @@ while($row = mysqli_fetch_assoc($result)) {
         echo "<span class='fieldname'>" . $row["name"] . "</td><td><input type=text name='values[]' value='" . $row["value"] . "'></td>\n";
         echo "<td><span class='discrete'>" . $row["memo"] . "</span></td></tr>\n";
     }
-echo "<tr><td colspan=3 align=center><br/><input type='Submit' value='Edit'></td></tr>\n</table>\n</form>\n";
+echo "<tr><td colspan=3 align=center><br/><input type='Submit' value='OK'></td></tr>\n</table>\n</form>\n";
 
 mysqli_close($conn);
 ?> 
