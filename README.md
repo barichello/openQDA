@@ -28,7 +28,7 @@ Codes: they are like tags that can be applied to sections (not sources). This is
 
 2) Decide what type of text will be supported and implement it;
 
-3) Decide how to enable add-ons;
+3) Introduce proper user functionality;
 
 # Important notes
 
