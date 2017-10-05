@@ -7,10 +7,8 @@ This software was created to help me organize and analyse the data I collected f
 At this moment, the software lacks some basic features. If you are looking for something ready to use, DO NOT use this software. I just shared as a way to find more people interested in a long term partnership to develop it.
 
 ## Network
-
-[![Network](https://img.shields.io/badge/QDA_networked_with-GIAnT-blue.svg)](https://github.com/DanielPollithy/GIAnT)
-
-[![Network](https://img.shields.io/badge/QDA_networked_with-BarraQDA.svg)](https://github.com/BarraQDA/nvivotools)
+[![Network](https://img.shields.io/badge/QDA%20networked%20with-GIAnT-blue.svg](https://github.com/DanielPollithy/GIAnT)
+[![Network](https://img.shields.io/badge/QDA%20networked%20with-BarraQDA-blue.svg)](https://github.com/BarraQDA/nvivotools)
 
 # How it works
 
