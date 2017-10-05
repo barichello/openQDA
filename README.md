@@ -8,9 +8,7 @@ At this moment, the software lacks some basic features. If you are looking for s
 
 ## Network
 
-[![Network](https://img.shields.io/badge/QDA%20networked%20with-GIAnT-blue.svg)](https://github.com/DanielPollithy/GIAnT)
-
-[![Network](https://img.shields.io/badge/QDA%20networked%20with-BarraQDA-blue.svg)](https://github.com/BarraQDA/nvivotools)
+[![Network](https://img.shields.io/badge/QDA%20networked%20with-GIAnT-blue.svg)](https://github.com/DanielPollithy/GIAnT) [![Network](https://img.shields.io/badge/QDA%20networked%20with-BarraQDA-blue.svg)](https://github.com/BarraQDA/nvivotools)
 
 # How it works
 
